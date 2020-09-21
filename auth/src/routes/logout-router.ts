@@ -2,7 +2,7 @@ const express = require("express")
 
 const router = express.Router()
 
-router.post('api/users/logout', (req, res)=> {
+router.post('/api/users/logout', (req, res)=> {
 
     res.send("logout route")
 })
