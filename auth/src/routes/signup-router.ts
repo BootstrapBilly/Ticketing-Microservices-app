@@ -19,10 +19,12 @@ router.post('/api/users/signup',
         const errors = validationResult(req)//see if there were any errors on the validation result
 
         if(!errors.isEmpty()){//if an error has been detected
-            return res.status(400).send(errors.array())//send a error response
+            throw new Error("Invalid email or password")
         } 
 
         const { email, password } = req.body
+
+        throw new Error("wrong")
 
         res.send("signup route")
     })
