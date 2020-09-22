@@ -1,6 +1,9 @@
 import express, { Request, Response } from "express"
 import { body, validationResult } from "express-validator"
 
+import { RequestValidationError } from "../errors/request-validation-error"
+import { DatabaseConnectionError } from "../errors/database-connection-error"
+
 const router = express.Router()
 
 router.post('/api/users/signup',
@@ -18,15 +21,13 @@ router.post('/api/users/signup',
 
         const errors = validationResult(req)//see if there were any errors on the validation result
 
-        if(!errors.isEmpty()){//if an error has been detected
-            throw new Error("Invalid email or password")
-        } 
+        if (!errors.isEmpty()) {//if an error has been detected
 
-        const { email, password } = req.body
+            throw new RequestValidationError(errors.array())
+        }
 
-        throw new Error("wrong")
+        throw new DatabaseConnectionError()
 
-        res.send("signup route")
     })
 
 export default router
