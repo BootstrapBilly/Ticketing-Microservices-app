@@ -1,5 +1,6 @@
 import express from "express"
 import { json } from "body-parser"
+import mongoose from "mongoose"
 
 //routers
 import current_user_router from "./routes/current-user-router"
@@ -24,4 +25,25 @@ app.use(catch_all_router)//if the url doesn't match any routes, the catch all ro
 
 app.use(error_handler)//at the bottom of all middleware
 
-app.listen(3000, () => { console.log("Auth running on 3000") })
+const run_server = async () => {
+
+    try {
+
+        await mongoose.connect("mongodb://auth-mongo-cip:27017/auth", {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true
+        })
+
+        console.log("Connected to mongodb")
+
+    }
+
+    catch (error) { return console.error(error) }
+
+    app.listen(3000, () => { console.log("Auth running on 3000") })
+
+}
+
+run_server()
+
