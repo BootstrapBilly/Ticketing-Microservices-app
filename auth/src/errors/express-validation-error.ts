@@ -1,14 +1,14 @@
 import { ValidationError } from "express-validator"
 import { CustomError } from "./custom_error_abstract_class"
 
-export class RequestValidationError extends CustomError {
+export class ExpressValidationError extends CustomError {
 
     status = 424
 
     constructor(public errors: ValidationError[]) {
 
         super()
-        Object.setPrototypeOf(this, RequestValidationError.prototype);
+        Object.setPrototypeOf(this, ExpressValidationError.prototype);
 
     }
 

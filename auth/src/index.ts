@@ -1,4 +1,5 @@
 import express from "express"
+import "express-async-errors"
 import { json } from "body-parser"
 import mongoose from "mongoose"
 
@@ -14,7 +15,7 @@ import error_handler from "./middleware/error-handler"
 
 const app = express()
 
-app.use(json())
+app.use(json())//use the body parser
 
 app.use(current_user_router)
 app.use(login_router)
@@ -23,7 +24,7 @@ app.use(signup_router)
 
 app.use(catch_all_router)//if the url doesn't match any routes, the catch all router will throw an error
 
-app.use(error_handler)//at the bottom of all middleware
+app.use(error_handler)
 
 const run_server = async () => {
 
